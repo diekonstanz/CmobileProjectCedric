@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileProjectJuist3.Android", "MobileProjectJuist3\MobileProjectJuist3.Android\MobileProjectJuist3.Android.csproj", "{30654D03-2FE5-424D-9B87-A3A03B3C6254}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileProjectJuist3", "MobileProjectJuist3\MobileProjectJuist3\MobileProjectJuist3.csproj", "{916A5356-BE23-4212-AF74-95180F005214}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30654D03-2FE5-424D-9B87-A3A03B3C6254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30654D03-2FE5-424D-9B87-A3A03B3C6254}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30654D03-2FE5-424D-9B87-A3A03B3C6254}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{30654D03-2FE5-424D-9B87-A3A03B3C6254}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30654D03-2FE5-424D-9B87-A3A03B3C6254}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30654D03-2FE5-424D-9B87-A3A03B3C6254}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{916A5356-BE23-4212-AF74-95180F005214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{916A5356-BE23-4212-AF74-95180F005214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{916A5356-BE23-4212-AF74-95180F005214}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{916A5356-BE23-4212-AF74-95180F005214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{916A5356-BE23-4212-AF74-95180F005214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{916A5356-BE23-4212-AF74-95180F005214}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2DD066C-0DD3-47FC-B0E4-19F6EF3DF3EA}
+	EndGlobalSection
+EndGlobal
