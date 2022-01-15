@@ -16,11 +16,27 @@ namespace MobileProjectJuist3
     {
         public static string DatabasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Crystal.db");
 
+
+        private static DatabaseService databaseService;
+
+        public static DatabaseService DatabaseService
+        {
+            get
+            {
+                if (databaseService == null)
+                {
+                    databaseService = new DatabaseService(DatabasePath);
+                }
+                return databaseService;
+            }
+        }
+
+
+
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new LoginPage());
-            _ = DatabaseService.Database;
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()

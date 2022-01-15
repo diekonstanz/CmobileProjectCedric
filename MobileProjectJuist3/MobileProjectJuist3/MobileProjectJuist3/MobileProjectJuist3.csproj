@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="sqlite-net-base" Version="1.8.116" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.4.0.42" />
     <PackageReference Include="Syncfusion.Xamarin.Core" Version="19.4.0.42" />
     <PackageReference Include="Syncfusion.Xamarin.DataSource" Version="19.4.0.42" />

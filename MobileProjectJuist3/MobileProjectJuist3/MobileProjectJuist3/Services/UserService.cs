@@ -12,13 +12,13 @@ namespace MobileProjectJuist3.Services
         public static Task<List<User>> GetUsersAsync()
         {
             //Get all Users.
-            return DatabaseService.Database.Table<User>().ToListAsync();
+            return App.DatabaseService.database.Table<User>().ToListAsync();
         }
 
         public static Task<User> GetUserAsync(int id)
         {
             // Get a specific User.
-            return DatabaseService.Database.Table<User>()
+            return App.DatabaseService.database.Table<User>()
                             .Where(i => i.Id == id)
                             .FirstOrDefaultAsync();
         }
@@ -28,19 +28,19 @@ namespace MobileProjectJuist3.Services
             if (user.Id != 0)
             {
                 // Update an existing User.
-                return DatabaseService.Database.UpdateAsync(user);
+                return App.DatabaseService.database.UpdateAsync(user);
             }
             else
             {
                 // Save a new User.
-                return DatabaseService.Database.InsertAsync(user);
+                return App.DatabaseService.database.InsertAsync(user);
             }
         }
 
         public static Task<int> DeleteUserAsync(User user)
         {
             // Delete a User.
-            return DatabaseService.Database.DeleteAsync(user);
+            return App.DatabaseService.database.DeleteAsync(user);
         }
     }
 }

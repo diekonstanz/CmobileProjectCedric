@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileProjectJuist3.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +14,14 @@ namespace MobileProjectJuist3
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        protected override async void OnAppearing()
+        {
+
+            // Retrieve all the notes from the database, and set them as the
+            // data source for the CollectionView.
+            collectionView.ItemsSource = await UserService.GetUsersAsync();
         }
     }
 }
