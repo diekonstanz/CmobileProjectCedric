@@ -2,6 +2,7 @@
 using MobileProjectJuist3.Services;
 using MobileProjectJuist3.Validators;
 using MobileProjectJuist3.Validators.Rules;
+using MobileProjectJuist3.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -33,6 +34,7 @@ namespace MobileProjectJuist3.ViewModels
             this.LoginCommand = new Command(this.LoginClicked);
             this.SignUpCommand = new Command(this.SignUpClicked);
         }
+
         #endregion
 
         #region Property
@@ -42,10 +44,7 @@ namespace MobileProjectJuist3.ViewModels
         /// </summary>
         public ValidatableObject<string> Name
         {
-            get
-            {
-                return this.name;
-            }
+            get { return this.name; }
 
             set
             {
@@ -63,10 +62,7 @@ namespace MobileProjectJuist3.ViewModels
         /// </summary>
         public ValidatablePair<string> Password
         {
-            get
-            {
-                return this.password;
-            }
+            get { return this.password; }
 
             set
             {
@@ -78,6 +74,7 @@ namespace MobileProjectJuist3.ViewModels
                 this.SetProperty(ref this.password, value);
             }
         }
+
         #endregion
 
         #region Command
@@ -91,6 +88,7 @@ namespace MobileProjectJuist3.ViewModels
         /// Gets or sets the command that is executed when the Sign Up button is clicked.
         /// </summary>
         public Command SignUpCommand { get; set; }
+
         #endregion
 
         #region Methods
@@ -121,25 +119,27 @@ namespace MobileProjectJuist3.ViewModels
         /// </summary>
         private void AddValidationRules()
         {
-            this.Name.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "Name Required" });
-            this.Password.Item1.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "Password Required" });
-            this.Password.Item2.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "Re-enter Password" });
+            this.Name.Validations.Add(new IsNotNullOrEmptyRule<string> {ValidationMessage = "Name Required"});
+            this.Password.Item1.Validations.Add(new IsNotNullOrEmptyRule<string>
+                {ValidationMessage = "Password Required"});
+            this.Password.Item2.Validations.Add(new IsNotNullOrEmptyRule<string>
+                {ValidationMessage = "Re-enter Password"});
         }
 
         /// <summary>
         /// Invoked when the Log in button is clicked.
         /// </summary>
         /// <param name="obj">The Object</param>
-        private void LoginClicked(object obj)
+        private async void LoginClicked(object obj)
         {
-            // Do something
+            await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
         }
 
         /// <summary>
         /// Invoked when the Sign Up button is clicked.
         /// </summary>
         /// <param name="obj">The Object</param>
-        private void SignUpClicked(object obj)
+        private async void SignUpClicked(object obj)
         {
             if (this.AreFieldsValid())
             {
@@ -148,7 +148,9 @@ namespace MobileProjectJuist3.ViewModels
                 user.Name = this.Name.Value;
                 user.Email = this.Email.Value;
                 user.Password = this.Password.Item1.Value;
-                UserService.SaveUserAsync(user);
+                await UserService.SaveUserAsync(user);
+                await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
+
             }
         }
 

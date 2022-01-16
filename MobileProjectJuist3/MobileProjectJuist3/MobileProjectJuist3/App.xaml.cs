@@ -2,6 +2,7 @@ using MobileProjectJuist3.Services;
 using MobileProjectJuist3.Views;
 using System;
 using System.IO;
+using MobileProjectJuist3.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -31,12 +32,29 @@ namespace MobileProjectJuist3
             }
         }
 
+        private static User user;
+
+        public static User CurrentUser
+        {
+            get
+            {
+                return user;
+            }
+            set
+            {
+                if (user == null)
+                {
+                    user = value;
+                }
+            }
+        }
+
 
 
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()

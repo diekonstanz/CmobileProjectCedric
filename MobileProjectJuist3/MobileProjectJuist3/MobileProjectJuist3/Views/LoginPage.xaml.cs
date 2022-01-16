@@ -19,16 +19,9 @@ namespace MobileProjectJuist3.Views
         }
         
 
-        private async void SfButton_OnClicked(object sender, System.EventArgs e)
-        {
-            await Navigation.PushAsync(new SignUpPage());
-        }
+        
 
 
 
-        private async void ForgotPasswordLabel_OnClicked(object sender, System.EventArgs e)
-        {
-            await Navigation.PushAsync(new ForgotPasswordPage());
-        }
     }
 }

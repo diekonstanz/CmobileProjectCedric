@@ -1,7 +1,12 @@
-﻿using MobileProjectJuist3.Validators;
+﻿using MobileProjectJuist3.Models;
+using MobileProjectJuist3.Services;
+using MobileProjectJuist3.Validators;
 using MobileProjectJuist3.Validators.Rules;
+using MobileProjectJuist3.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using System;
+using System.Threading.Tasks;
+using SQLite;
 
 namespace MobileProjectJuist3.ViewModels
 {
@@ -28,8 +33,7 @@ namespace MobileProjectJuist3.ViewModels
             this.AddValidationRules();
             this.LoginCommand = new Command(this.LoginClicked);
             this.SignUpCommand = new Command(this.SignUpClicked);
-            this.ForgotPasswordCommand = new Command(this.ForgotPasswordClicked);
-            this.SocialMediaLoginCommand = new Command(this.SocialLoggedIn);
+           
         }
 
         #endregion
@@ -71,16 +75,7 @@ namespace MobileProjectJuist3.ViewModels
         /// </summary>
         public Command SignUpCommand { get; set; }
 
-        /// <summary>
-        /// Gets or sets the command that is executed when the Forgot Password button is clicked.
-        /// </summary>
-        public Command ForgotPasswordCommand { get; set; }
-
-        /// <summary>
-        /// Gets or sets the command that is executed when the social media login button is clicked.
-        /// </summary>
-        public Command SocialMediaLoginCommand { get; set; }
-
+       
         #endregion
 
         #region methods
@@ -116,11 +111,22 @@ namespace MobileProjectJuist3.ViewModels
         /// Invoked when the Log In button is clicked.
         /// </summary>
         /// <param name="obj">The Object</param>
-        private void LoginClicked(object obj)
+        private async void LoginClicked(object obj)
         {
-            if (this.AreFieldsValid())
+            string password = this.Password.Value;
+            string email = this.Email.Value;
+            User user = await UserService.LoginValidate(email,password);
+            if (user != null)
             {
-                // Do Something
+                App.CurrentUser = user;
+                await Application.Current.MainPage.Navigation.PushAsync(new MainPage());
+
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Alert","Foute combinatie email en wachtwoord", "ok");
+
+
             }
         }
 
@@ -128,28 +134,11 @@ namespace MobileProjectJuist3.ViewModels
         /// Invoked when the Sign Up button is clicked.
         /// </summary>
         /// <param name="obj">The Object</param>
-        private void SignUpClicked(object obj)
+        private async void SignUpClicked(object obj)
         {
-            // Do Something
+            await Application.Current.MainPage.Navigation.PushAsync(new SignUpPage());
         }
 
-        /// <summary>
-        /// Invoked when the Forgot Password button is clicked.
-        /// </summary>
-        /// <param name="obj">The Object</param>
-        private void ForgotPasswordClicked(object obj)
-        {
-            // Do something
-        }
-
-        /// <summary>
-        /// Invoked when social media login button is clicked.
-        /// </summary>
-        /// <param name="obj">The Object</param>
-        private void SocialLoggedIn(object obj)
-        {
-            // Do something
-        }
 
         #endregion
     }

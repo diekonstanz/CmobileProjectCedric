@@ -111,18 +111,7 @@
                                 VerticalOptions="FillAndExpand" />
                         </StackLayout>
 
-                        <!--  Forgot password link  -->
-                        <buttons:SfButton
-                            x:Name="ForgotPasswordLabel"
-                            Grid.Row="4"
-                            Margin="0,16"
-                            Command="{Binding ForgotPasswordCommand}"
-                            FontSize="12"
-                            HorizontalOptions="End"
-                            Style="{StaticResource TransparentButtonStyle}"
-                            Text="FORGOT PASSWORD?"
-                            TextColor="{DynamicResource Gray-800}"
-                            Clicked="ForgotPasswordLabel_OnClicked"/>
+                        
 
 
                         <!--  Login button  -->
@@ -143,12 +132,6 @@
                         Spacing="1"
                         VerticalOptions="End">
 
-                        <StackLayout.Padding>
-                            <OnIdiom
-                                x:DataType="Thickness"
-                                Default="0, 48, 0, 0"
-                                Phone="0" />
-                        </StackLayout.Padding>
 
                         <Label
                             Style="{StaticResource DescriptionLabelStyle}"
@@ -162,7 +145,7 @@
                             Style="{StaticResource TransparentButtonStyle}"
                             Text="Sign Up"
                             TextColor="{DynamicResource PrimaryColor}"
-                            Clicked="SfButton_OnClicked"/>
+                           />
 
                     </StackLayout>
 

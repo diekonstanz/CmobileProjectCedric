@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using MobileProjectJuist3.Models;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace MobileProjectJuist3.Services
 {
@@ -19,8 +20,15 @@ namespace MobileProjectJuist3.Services
         {
             // Get a specific User.
             return App.DatabaseService.database.Table<User>()
-                            .Where(i => i.Id == id)
-                            .FirstOrDefaultAsync();
+                .Where(i => i.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+        public async static Task<User> LoginValidate(string email, string password)
+        {
+            return await App.DatabaseService.database.Table<User>()
+                .Where(i => i.Email == email && i.Password == password)
+                .FirstOrDefaultAsync();
         }
 
         public static Task<int> SaveUserAsync(User user)
