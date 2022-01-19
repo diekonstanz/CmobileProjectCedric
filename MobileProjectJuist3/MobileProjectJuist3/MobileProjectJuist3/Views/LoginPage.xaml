@@ -64,7 +64,7 @@
                             Grid.Row="1"
                             Margin="0,8"
                             Style="{StaticResource DescriptionLabelStyle}"
-                            Text="Let's get to work"
+                            Text="Let's collect some crystals"
                             TextColor="{DynamicResource Gray-800}" />
 
                         <!--  Entry to get email ID from user  -->
@@ -144,7 +144,7 @@
                             Command="{Binding SignUpCommand}"
                             Style="{StaticResource TransparentButtonStyle}"
                             Text="Sign Up"
-                            TextColor="{DynamicResource PrimaryColor}"
+                            TextColor='#a96bbf'
                            />
 
                     </StackLayout>

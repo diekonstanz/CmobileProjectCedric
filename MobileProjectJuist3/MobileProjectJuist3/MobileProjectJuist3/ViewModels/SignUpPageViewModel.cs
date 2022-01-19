@@ -150,7 +150,7 @@ namespace MobileProjectJuist3.ViewModels
                 user.Password = this.Password.Item1.Value;
                 await UserService.SaveUserAsync(user);
                 await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
-
+                //TODO wat als signup niet lukt 
             }
         }
 

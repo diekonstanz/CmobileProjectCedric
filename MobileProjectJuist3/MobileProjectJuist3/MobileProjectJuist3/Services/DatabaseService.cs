@@ -15,6 +15,7 @@ namespace MobileProjectJuist3.Services
         {
             database = new SQLiteAsyncConnection(dbPath);
             database.CreateTableAsync<User>().Wait();
+            database.CreateTableAsync<Crystal>().Wait();
         }
     }
 }

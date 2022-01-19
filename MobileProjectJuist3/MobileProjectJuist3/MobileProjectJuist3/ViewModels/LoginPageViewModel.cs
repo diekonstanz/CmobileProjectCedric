@@ -119,7 +119,7 @@ namespace MobileProjectJuist3.ViewModels
             if (user != null)
             {
                 App.CurrentUser = user;
-                await Application.Current.MainPage.Navigation.PushAsync(new MainPage());
+                await Application.Current.MainPage.Navigation.PushAsync(new CrystalListPage());
 
             }
             else

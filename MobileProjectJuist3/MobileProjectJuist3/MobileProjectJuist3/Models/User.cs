@@ -8,12 +8,14 @@ namespace MobileProjectJuist3.Models
     [Table("Notes")]
     public class User
     {
+        
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
        
         public string Name { get; set; }
 
+        //TODO email unique maken
         public string Email { get; set; }
 
         public string Password { get; set; }

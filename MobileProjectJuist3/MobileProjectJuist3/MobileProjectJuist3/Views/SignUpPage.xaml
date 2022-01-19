@@ -64,7 +64,7 @@
                             x:Name="text"
                             Margin="0,-16,0,8"
                             Style="{StaticResource DescriptionLabelStyle}"
-                            Text="Create an account to start doing more"
+                            Text="Create an account to start collecting crystals"
                             TextColor="{DynamicResource Gray-800}" />
 
                         <StackLayout>
@@ -219,7 +219,7 @@
                             Command="{Binding LoginCommand}"
                             Style="{StaticResource TransparentButtonStyle}"
                             Text="Log In"
-                            TextColor="{DynamicResource PrimaryColor}"/>
+                            TextColor="#a96bbf"/>
 
                     </StackLayout>
                 </StackLayout>
