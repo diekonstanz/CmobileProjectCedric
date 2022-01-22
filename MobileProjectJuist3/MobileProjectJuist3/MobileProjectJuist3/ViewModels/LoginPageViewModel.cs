@@ -33,7 +33,9 @@ namespace MobileProjectJuist3.ViewModels
             this.AddValidationRules();
             this.LoginCommand = new Command(this.LoginClicked);
             this.SignUpCommand = new Command(this.SignUpClicked);
-           
+            this.Email.Value = "tizi@hotmail.com";
+            this.Password.Value = "q";
+
         }
 
         #endregion
