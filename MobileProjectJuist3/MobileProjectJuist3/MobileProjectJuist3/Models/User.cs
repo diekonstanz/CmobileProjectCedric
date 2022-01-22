@@ -15,7 +15,7 @@ namespace MobileProjectJuist3.Models
        
         public string Name { get; set; }
 
-        //TODO email unique maken
+        [Unique]
         public string Email { get; set; }
 
         public string Password { get; set; }

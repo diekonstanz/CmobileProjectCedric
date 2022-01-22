@@ -24,7 +24,24 @@ namespace MobileProjectJuist3.Services
 
         public static Task<List<Crystal>> GetCrystalsForUserAsync(int userId)
         {
-            return App.DatabaseService.database.Table<Crystal>().Where(i => i.UserId == userId).ToListAsync();
+            // TODO TEMP
+            List<Crystal> crystals = new List<Crystal>();
+            Crystal a = new Crystal();
+            a.UserId = userId;
+            a.Name = "Quartz";
+            a.RegisteredDate = DateTime.UtcNow;
+            crystals.Add(a);
+            Crystal b = new Crystal();
+            b.UserId = userId;
+            b.Name = "Amethyst";
+            b.RegisteredDate = DateTime.UtcNow;
+            crystals.Add(b);
+
+
+            return Task<List<Crystal>>.FromResult(crystals);
+
+            // Returns all crystls for a pertical user
+            //return App.DatabaseService.database.Table<Crystal>().Where(i => i.UserId == userId).ToListAsync();
         }
 
         
