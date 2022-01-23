@@ -80,6 +80,7 @@ namespace Crystals.ViewModels
                 isRefreshing = false;
                 OnPropertyChanged("IsRefreshing");
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(IsRefreshing));
                 Debug.Write("Refresh " + IsRefreshing);
             });
 
@@ -127,6 +128,9 @@ namespace Crystals.ViewModels
             }
             IsRefreshing = false;
             isRefreshing = false;
+            OnPropertyChanged(nameof(IsRefreshing));
+            OnPropertyChanged("IsRefreshing");
+            OnPropertyChanged();
 
         }
 
