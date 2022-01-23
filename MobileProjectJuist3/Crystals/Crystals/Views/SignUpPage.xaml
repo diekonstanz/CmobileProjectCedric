@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Crystals.Views.SignUpPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fragments="clr-namespace:Crystals.Views.Fragments"
+    xmlns:viewModel="clr-namespace:Crystals.ViewModels"
+    xmlns:views="clr-namespace:Crystals.Views.Templates.Auth"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <viewModel:SignUpPageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout
+            Padding="0,20,0,0"
+            xct:StateLayout.CurrentState="{Binding MainState}"
+            BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor},
+                                              Dark={StaticResource DarkPageBackgroundColor}}">
+            <xct:StateLayout.StateViews>
+                <xct:StateView StateKey="Loading" VerticalOptions="FillAndExpand">
+                    <fragments:LoadingView />
+                </xct:StateView>
+            </xct:StateLayout.StateViews>
+            <Grid
+                Margin="20,0,0,10"
+                ColumnDefinitions="Auto, Auto"
+                HorizontalOptions="Start">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}" />
+                </Grid.GestureRecognizers>
+                <Label
+                    Grid.Column="0"
+                    FontFamily="FontAwesome_Solid"
+                    FontSize="{StaticResource Headline4FontSize}"
+                    HorizontalOptions="Start"
+                    Text="&#xf060;"
+                    TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                Dark={StaticResource DarkPrimaryTextColor}}"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
+                    Style="{StaticResource Headline4_MulishBlack}"
+                    Text="{Binding Title}"
+                    VerticalOptions="Center" />
+            </Grid>
+            <views:SignUpTemplate />
+            <Label
+                Margin="20,0,20,30"
+                HorizontalTextAlignment="Center"
+                TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                            Dark={StaticResource DarkPrimaryTextColor}}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Style="{StaticResource Body1_MulishRegular}" Text="Already have an account? " />
+                        <Span Style="{StaticResource Base_Link}" Text="Login" />
+                    </FormattedString>
+                </Label.FormattedText>
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SwitchToLoginCommand}" NumberOfTapsRequired="1" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="Crystals.Views.Templates.AddEditCrystal.EditCrystalTemplate"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Crystals.ViewModels.Templates.AddEditCrystal"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+
+    <ContentView.BindingContext>
+        <views:EditCrystalViewModel />
+    </ContentView.BindingContext>
+
+    <Grid RowDefinitions="*, Auto">
+        <StackLayout Grid.Row="0">
+            <StackLayout Spacing="5">
+                <Label Style="{StaticResource Body1_MulishSemiBold}" Text="Name" />
+                <Frame x:Name="NameFrame" Style="{StaticResource Base_FrameEntry}">
+                    <Entry
+                        Placeholder="Enter crystal name"
+                        Style="{StaticResource Base_Entry}"
+                        Text="{Binding Name.Value}">
+                        <Entry.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding CreateCommand}" EventName="Completed" />
+                            <xct:UserStoppedTypingBehavior
+                                Command="{Binding ValidateCommand}"
+                                CommandParameter="name"
+                                ShouldDismissKeyboardAutomatically="False"
+                                StoppedTypingTimeThreshold="50" />
+                        </Entry.Behaviors>
+                        <Entry.Triggers>
+                            <DataTrigger
+                                Binding="{Binding Name.IsValid}"
+                                TargetType="Entry"
+                                Value="False">
+                                <Setter TargetName="NameFrame" Property="Frame.BorderColor" Value="{StaticResource FailColor}" />
+                                <Setter TargetName="AddButton" Property="Button.IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Entry.Triggers>
+                        <Entry.Effects>
+                            <xct:RemoveBorderEffect />
+                        </Entry.Effects>
+                    </Entry>
+                </Frame>
+                <Label
+                    IsVisible="{Binding Name.IsValid, Converter={xct:InvertedBoolConverter}}"
+                    Text="{Binding Name.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    TextColor="{StaticResource FailColor}" />
+            </StackLayout>
+            <StackLayout Spacing="5">
+                <Label Style="{StaticResource Body1_MulishSemiBold}" Text="Date" />
+                <Frame x:Name="DateFrame" Style="{StaticResource Base_FrameEntry}">
+                    <DatePicker
+                        Date="{Binding RegisteredDate.Value}"
+                        FontFamily="Mulish_Regular"
+                        Format="dd/MM/yyyy"
+                        Style="{StaticResource Base_DatePicker}">
+                        <DatePicker.Effects>
+                            <xct:RemoveBorderEffect />
+                        </DatePicker.Effects>
+                    </DatePicker>
+                </Frame>
+                <Label
+                    IsVisible="{Binding Date.IsValid, Converter={xct:InvertedBoolConverter}}"
+                    Text="{Binding Date.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    TextColor="{StaticResource FailColor}" />
+            </StackLayout>
+        </StackLayout>
+        <Button
+            x:Name="AddButton"
+            Grid.Row="1"
+            Margin="0,0,0,15"
+            Command="{Binding CreateCommand}"
+            Style="{StaticResource Base_Button}"
+            VerticalOptions="End">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup>
+                    <VisualState x:Name="crystal">
+                        <VisualState.Setters>
+                            <Setter Property="Text" Value="Save" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </Button>
+    </Grid>
+</ContentView>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout
+    x:Class="Crystals.Views.Fragments.ZeroStateView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Margin="100,-50,100,0"
+    HorizontalOptions="Center"
+    VerticalOptions="Center">
+    <Image
+        HeightRequest="200"
+        Source="crystal.png"
+        WidthRequest="200" />
+    <Label
+        HorizontalTextAlignment="Center"
+        Style="{StaticResource Headline4_MulishBlack}"
+        Text="All clear" />
+    <Label
+        HorizontalTextAlignment="Center"
+        Style="{StaticResource Body1_MulishRegular}"
+        Text="Looks like you don't have any crystals"
+        TextColor="{AppThemeBinding Light={StaticResource LightSecondaryTextColor},
+                                    Dark={StaticResource DarkSecondaryTextColor}}" />
+</StackLayout>

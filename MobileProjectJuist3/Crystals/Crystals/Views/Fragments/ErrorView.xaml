@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Grid
+    x:Class="Crystals.Views.Fragments.ErrorView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Margin="15,0,15,0"
+    RowDefinitions="*, Auto"
+    RowSpacing="0">
+    <Image
+        Grid.Row="0"
+        Aspect="AspectFit"
+        Source="error.png" />
+    <StackLayout Grid.Row="1">
+        <Label
+            Margin="30,20,30,10"
+            HorizontalTextAlignment="Center"
+            Style="{StaticResource Headline4_MulishBlack}"
+            Text="Error" />
+        <Label
+            Margin="0,0,0,30"
+            HorizontalTextAlignment="Center"
+            Style="{StaticResource Body1_MulishRegular}"
+            Text="Oops, something went wrong! Please wait few moments and try again."
+            TextColor="{AppThemeBinding Light={StaticResource LightSecondaryTextColor},
+                                        Dark={StaticResource DarkSecondaryTextColor}}" />
+        <Button
+            Margin="0,20,0,25"
+            Command="{Binding TryAgainCommand}"
+            Style="{StaticResource Base_Button}"
+            Text="TRY AGAIN" />
+    </StackLayout>
+</Grid>

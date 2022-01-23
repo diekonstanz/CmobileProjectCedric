@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Crystals.Views.AddCrystalPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:Crystals.Views.Templates.AddEditCrystal"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid
+            Padding="20,20,20,0"
+            BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor},
+                                              Dark={StaticResource DarkPageBackgroundColor}}"
+            RowDefinitions="Auto, Auto, *, Auto">
+            <Grid
+                Grid.Row="0"
+                Margin="0,0,0,10"
+                ColumnDefinitions="Auto, Auto"
+                HorizontalOptions="Start">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}" />
+                </Grid.GestureRecognizers>
+                <Label
+                    Grid.Column="0"
+                    FontFamily="FontAwesome_Solid"
+                    FontSize="{StaticResource Headline4FontSize}"
+                    HorizontalOptions="Start"
+                    Text="&#xf060;"
+                    TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                Dark={StaticResource DarkPrimaryTextColor}}"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
+                    Style="{StaticResource Headline4_MulishBlack}"
+                    Text="{Binding Title}"
+                    VerticalOptions="Center" />
+            </Grid>
+
+            <views:AddCrystalTemplate />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Crystals.Views.CrystalsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fragments="clr-namespace:Crystals.Views.Fragments"
+    xmlns:viewModel="clr-namespace:Crystals.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.BindingContext>
+        <viewModel:CrystalsPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <Grid
+            xct:StateLayout.CurrentState="{Binding MainState}"
+            BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor},
+                                              Dark={StaticResource DarkPageBackgroundColor}}"
+            RowDefinitions="Auto, Auto, Auto, Auto, Auto, *">
+            <xct:StateLayout.StateViews>
+                <xct:StateView StateKey="Loading" VerticalOptions="FillAndExpand">
+                    <fragments:LoadingView />
+                </xct:StateView>
+                <xct:StateView StateKey="Error" VerticalOptions="FillAndExpand">
+                    <fragments:ErrorView />
+                </xct:StateView>
+            </xct:StateLayout.StateViews>
+            <Grid
+                Grid.Row="1"
+                Margin="10,10,10,0"
+                ColumnDefinitions="Auto, *, Auto"
+                RowDefinitions="Auto, Auto"
+                RowSpacing="0">
+                <Label
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    Margin="5,0,5,0"
+                    FontFamily="FontAwesome_Solid"
+                    FontSize="{StaticResource Headline2FontSize}"
+                    HorizontalOptions="Center"
+                    Text="&#xf2bd;"
+                    TextColor="{AppThemeBinding Light={StaticResource LightButtonColor},
+                                                Dark={StaticResource DarkButtonColor}}"
+                    VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ProfileCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Style="{StaticResource Body1_MulishBold}"
+                    Text="Hello"
+                    TextColor="{AppThemeBinding Light={StaticResource LightSecondaryTextColor},
+                                                Dark={StaticResource DarkSecondaryTextColor}}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0,-2,0,0"
+                    Style="{StaticResource Subtitle1_MulishBlack}"
+                    Text="{Binding Name}"
+                    TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                Dark={StaticResource DarkPrimaryTextColor}}" />
+                <Label
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="2"
+                    Margin="0,0,10,0"
+                    FontFamily="FontAwesome_Solid"
+                    FontSize="{StaticResource Headline4FontSize}"
+                    Text="&#xf142;"
+                    TextColor="{AppThemeBinding Light={StaticResource LightButtonColor},
+                                                Dark={StaticResource DarkButtonColor}}"
+                    VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MoreCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+
+
+            <StackLayout
+                Grid.Row="4"
+                Margin="15,5,15,0"
+                HorizontalOptions="FillAndExpand"
+                Orientation="Horizontal">
+                <Label
+                    Style="{StaticResource Subtitle1_MulishBlack}"
+                    Text="Crystals"
+                    TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                Dark={StaticResource DarkPrimaryTextColor}}" />
+                <Label
+                    HorizontalOptions="EndAndExpand"
+                    Style="{StaticResource Body1_MulishRegular}"
+                    Text="{Binding Filter}"
+                    TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                Dark={StaticResource DarkPrimaryTextColor}}"
+                    VerticalOptions="End" />
+            </StackLayout>
+            <StackLayout
+                Grid.Row="5"
+                Padding="5,0"
+                xct:StateLayout.CurrentState="{Binding CrystalListState}">
+                <xct:StateLayout.StateViews>
+                    <xct:StateView StateKey="Loading" VerticalOptions="FillAndExpand">
+                        <fragments:LoadingView />
+                    </xct:StateView>
+                    <xct:StateView StateKey="Empty" VerticalOptions="FillAndExpand">
+                        <fragments:ZeroStateView />
+                    </xct:StateView>
+                </xct:StateLayout.StateViews>
+                <CollectionView x:Name="CrystalItems" ItemsSource="{Binding CrystalList}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <SwipeView BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}" IsEnabled="{Binding Archived, Converter={xct:InvertedBoolConverter}}">
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItemView Command="{Binding BindingContext.DeleteTaskCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}">
+                                                <Frame Padding="15,0" BackgroundColor="Transparent">
+                                                    <Label
+                                                        FontFamily="FontAwesome_Solid"
+                                                        FontSize="{StaticResource Headline4FontSize}"
+                                                        Text="&#xf2ed;"
+                                                        TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                                                    Dark={StaticResource DarkPrimaryTextColor}}"
+                                                        VerticalTextAlignment="Center" />
+                                                </Frame>
+                                            </SwipeItemView>
+                                            <SwipeItemView Command="{Binding BindingContext.EditTaskCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}">
+                                                <Frame Padding="25,0,15,0" BackgroundColor="Transparent">
+                                                    <Label
+                                                        FontFamily="FontAwesome_Solid"
+                                                        FontSize="{StaticResource Headline4FontSize}"
+                                                        Text="&#xf303;"
+                                                        TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                                                    Dark={StaticResource DarkPrimaryTextColor}}"
+                                                        VerticalTextAlignment="Center" />
+                                                </Frame>
+                                            </SwipeItemView>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <Frame
+                                        Margin="10,5"
+                                        Padding="10"
+                                        CornerRadius="20">
+                                        <Frame.GestureRecognizers>
+                                            <DragGestureRecognizer
+                                                CanDrag="True"
+                                                DragStarting="DragGestureRecognizer_DragStarting_Collection"
+                                                DragStartingCommand="{Binding BindingContext.ItemDragged, Source={x:Reference CrystalItems}}"
+                                                DragStartingCommandParameter="{Binding}" />
+                                            <TapGestureRecognizer Command="{Binding BindingContext.CheckTaskCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}" />
+                                        </Frame.GestureRecognizers>
+                                        <Grid
+                                            ColumnDefinitions="Auto, Auto"
+                                            RowDefinitions="Auto, Auto"
+                                            RowSpacing="0">
+
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Margin="10,0"
+                                                FontFamily="Mulish_ExtraBold"
+                                                FontSize="{StaticResource Body2FontSize}"
+                                                Text="{Binding Name}"
+                                                VerticalOptions="Center">
+                                                <VisualStateManager.VisualStateGroups>
+                                                    <VisualStateGroup>
+                                                        <VisualState x:Name="normal">
+                                                            <VisualState.StateTriggers>
+                                                                <StateTrigger IsActive="{Binding Archived, Converter={xct:InvertedBoolConverter}}" />
+                                                            </VisualState.StateTriggers>
+                                                            <VisualState.Setters>
+                                                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
+                                                            </VisualState.Setters>
+                                                        </VisualState>
+                                                        <VisualState x:Name="done">
+                                                            <VisualState.StateTriggers>
+                                                                <StateTrigger IsActive="{Binding Archived}" />
+                                                            </VisualState.StateTriggers>
+                                                            <VisualState.Setters>
+                                                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightDisabledTextColor}, Dark={StaticResource DarkSecondaryTextColor}}" />
+                                                            </VisualState.Setters>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                </VisualStateManager.VisualStateGroups>
+                                            </Label>
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                Margin="10,0"
+                                                FontFamily="Mulish_Regular"
+                                                FontSize="{StaticResource Body1FontSize}"
+                                                Text="{Binding RegisteredDate}"
+                                                VerticalOptions="CenterAndExpand">
+                                                <VisualStateManager.VisualStateGroups>
+                                                    <VisualStateGroup>
+                                                        <VisualState x:Name="normal">
+                                                            <VisualState.StateTriggers>
+                                                                <StateTrigger IsActive="{Binding Archived, Converter={xct:InvertedBoolConverter}}" />
+                                                            </VisualState.StateTriggers>
+                                                            <VisualState.Setters>
+                                                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
+                                                            </VisualState.Setters>
+                                                        </VisualState>
+                                                        <VisualState x:Name="done">
+                                                            <VisualState.StateTriggers>
+                                                                <StateTrigger IsActive="{Binding Archived}" />
+                                                            </VisualState.StateTriggers>
+                                                            <VisualState.Setters>
+                                                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightDisabledTextColor}, Dark={StaticResource DarkSecondaryTextColor}}" />
+                                                            </VisualState.Setters>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                </VisualStateManager.VisualStateGroups>
+                                            </Label>
+                                        </Grid>
+                                    </Frame>
+                                </SwipeView>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+            <Frame
+                Grid.Row="5"
+                Padding="20"
+                xct:TouchEffect.NativeAnimation="True"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightButtonColor},
+                                                  Dark={StaticResource DarkButtonColor}}"
+                CornerRadius="20"
+                HorizontalOptions="End"
+                TranslationX="-20"
+                TranslationY="-20"
+                VerticalOptions="End">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddCommand}" />
+                </Frame.GestureRecognizers>
+                <Label
+                    FontFamily="FontAwesome_Solid"
+                    FontSize="{StaticResource Headline3FontSize}"
+                    HorizontalOptions="Center"
+                    Text="&#xf067;"
+                    TextColor="{AppThemeBinding Light={StaticResource LightButtonTextColor},
+                                                Dark={StaticResource DarkButtonTextColor}}"
+                    VerticalOptions="Center" />
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
