@@ -22,7 +22,7 @@
                 </Grid.GestureRecognizers>
                 <Label
                     Grid.Column="0"
-                    FontFamily="FontAwesome_Solid"
+                    FontFamily="{StaticResource FontAwesomeSolid}"
                     FontSize="{StaticResource Headline4FontSize}"
                     HorizontalOptions="Start"
                     Text="&#xf060;"
@@ -92,24 +92,14 @@
                                 Text="{Binding Date.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                                 TextColor="{StaticResource FailColor}" />
                         </StackLayout>
+                        <Button
+                            x:Name="LoginButton"
+                            Margin="20,20,20,10"
+                            Command="{Binding CreateCommand}"
+                            Style="{StaticResource Base_Button}"
+                            Text="Add" />
                     </StackLayout>
-                    <Button
-                        x:Name="AddButton"
-                        Grid.Row="1"
-                        Margin="0,0,0,15"
-                        Command="{Binding CreateCommand}"
-                        Style="{StaticResource Base_Button}"
-                        VerticalOptions="End">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup>
-                                <VisualState x:Name="crystal">
-                                    <VisualState.Setters>
-                                        <Setter Property="Text" Value="Save" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                    </Button>
+
                 </Grid>
             </ContentView>
 

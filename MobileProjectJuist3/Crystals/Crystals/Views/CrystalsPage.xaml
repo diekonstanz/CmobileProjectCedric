@@ -37,10 +37,10 @@
                     Grid.RowSpan="2"
                     Grid.Column="0"
                     Margin="5,0,5,0"
-                    FontFamily="FontAwesome_Solid"
+                    FontFamily="{StaticResource FontAwesomeSolid}"
                     FontSize="{StaticResource Headline2FontSize}"
                     HorizontalOptions="Center"
-                    Text="&#xf2bd;"
+                    Text="&#xf007;"
                     TextColor="{AppThemeBinding Light={StaticResource LightButtonColor},
                                                 Dark={StaticResource DarkButtonColor}}"
                     VerticalOptions="Center">
@@ -68,7 +68,7 @@
                     Grid.RowSpan="2"
                     Grid.Column="2"
                     Margin="0,0,10,0"
-                    FontFamily="FontAwesome_Solid"
+                    FontFamily="{StaticResource FontAwesomeSolid}"
                     FontSize="{StaticResource Headline4FontSize}"
                     Text="&#xf142;"
                     TextColor="{AppThemeBinding Light={StaticResource LightButtonColor},
@@ -80,165 +80,7 @@
                 </Label>-->
             </Grid>
 
-            <Grid
-                Grid.Row="2"
-                Margin="15,0"
-                ColumnDefinitions="Auto, *, 35, 35"
-                HeightRequest="35">
-                <Label
-                    Grid.Column="0"
-                    Style="{StaticResource Subtitle1_MulishBlack}"
-                    Text="{Binding Week.WeekString}"
-                    TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
-                                                Dark={StaticResource DarkPrimaryTextColor}}"
-                    VerticalOptions="Center" />
-                <Button
-                    Grid.Column="2"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource LightButtonColor},
-                                                      Dark={StaticResource DarkButtonColor}}"
-                    Command="{Binding PreviousWeekCommand}"
-                    CommandParameter="{Binding Week.StartDay}"
-                    CornerRadius="15"
-                    FontFamily="FontAwesome_Solid"
-                    FontSize="{StaticResource Body2FontSize}"
-                    Text="&#xf053;"
-                    TextColor="{AppThemeBinding Light={StaticResource LightButtonTextColor},
-                                                Dark={StaticResource DarkButtonTextColor}}" />
-                <Button
-                    Grid.Column="3"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource LightButtonColor},
-                                                      Dark={StaticResource DarkButtonColor}}"
-                    Command="{Binding NextWeekCommand}"
-                    CommandParameter="{Binding Week.LastDay}"
-                    CornerRadius="15"
-                    FontFamily="FontAwesome_Solid"
-                    FontSize="{StaticResource Body2FontSize}"
-                    Text="&#xf054;"
-                    TextColor="{AppThemeBinding Light={StaticResource LightButtonTextColor},
-                                                Dark={StaticResource DarkButtonTextColor}}" />
-            </Grid>
-            <Grid
-                x:Name="daysList"
-                Grid.Row="3"
-                Margin="15,0"
-                BindableLayout.ItemsSource="{Binding DaysList}"
-                ColumnDefinitions="*, *, *, *, *, *">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Frame
-                            Grid.Column="{Binding Column}"
-                            Padding="4,8,4,8"
-                            xct:TouchEffect.NativeAnimation="True"
-                            CornerRadius="16">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding BindingContext.DayCommand, Source={x:Reference daysList}}" CommandParameter="{Binding .}" />
-                            </Frame.GestureRecognizers>
-                            <StackLayout Spacing="0">
-                                <Label
-                                    HorizontalTextAlignment="Center"
-                                    Style="{StaticResource Body1_MulishRegular}"
-                                    Text="{Binding DayName}"
-                                    TextTransform="Uppercase">
-                                    <VisualStateManager.VisualStateGroups>
-                                        <VisualStateGroup>
-                                            <VisualState x:Name="normal">
-                                                <VisualState.StateTriggers>
-                                                    <StateTrigger IsActive="{Binding State, Converter={xct:EqualConverter}, ConverterParameter={x:Static model:DayStateEnum.Normal}}" />
-                                                </VisualState.StateTriggers>
-                                                <VisualState.Setters>
-                                                    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightSecondaryTextColor}, Dark={StaticResource DarkSecondaryTextColor}}" />
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                            <VisualState x:Name="active">
-                                                <VisualState.StateTriggers>
-                                                    <StateTrigger IsActive="{Binding State, Converter={xct:EqualConverter}, ConverterParameter={x:Static model:DayStateEnum.Active}}" />
-                                                </VisualState.StateTriggers>
-                                                <VisualState.Setters>
-                                                    <Setter Property="FontFamily" Value="Mulish_Bold" />
-                                                    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightButtonTextColor}, Dark={StaticResource DarkButtonTextColor}}" />
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                            <VisualState x:Name="past">
-                                                <VisualState.StateTriggers>
-                                                    <StateTrigger IsActive="{Binding State, Converter={xct:EqualConverter}, ConverterParameter={x:Static model:DayStateEnum.Past}}" />
-                                                </VisualState.StateTriggers>
-                                                <VisualState.Setters>
-                                                    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightDisabledTextColor}, Dark={StaticResource DarkDisabledTextColor}}" />
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                        </VisualStateGroup>
-                                    </VisualStateManager.VisualStateGroups>
-                                </Label>
-                                <Label
-                                    HorizontalTextAlignment="Center"
-                                    Style="{StaticResource Subtitle1_MulishBlack}"
-                                    Text="{Binding Day}">
-                                    <VisualStateManager.VisualStateGroups>
-                                        <VisualStateGroup>
-                                            <VisualState x:Name="normal">
-                                                <VisualState.StateTriggers>
-                                                    <StateTrigger IsActive="{Binding State, Converter={xct:EqualConverter}, ConverterParameter={x:Static model:DayStateEnum.Normal}}" />
-                                                </VisualState.StateTriggers>
-                                                <VisualState.Setters>
-                                                    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                            <VisualState x:Name="active">
-                                                <VisualState.StateTriggers>
-                                                    <StateTrigger IsActive="{Binding State, Converter={xct:EqualConverter}, ConverterParameter={x:Static model:DayStateEnum.Active}}" />
-                                                </VisualState.StateTriggers>
-                                                <VisualState.Setters>
-                                                    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightButtonTextColor}, Dark={StaticResource DarkButtonTextColor}}" />
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                            <VisualState x:Name="past">
-                                                <VisualState.StateTriggers>
-                                                    <StateTrigger IsActive="{Binding State, Converter={xct:EqualConverter}, ConverterParameter={x:Static model:DayStateEnum.Past}}" />
-                                                </VisualState.StateTriggers>
-                                                <VisualState.Setters>
-                                                    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightDisabledTextColor}, Dark={StaticResource DarkDisabledTextColor}}" />
-                                                </VisualState.Setters>
-                                            </VisualState>
-                                        </VisualStateGroup>
-                                    </VisualStateManager.VisualStateGroups>
-                                </Label>
-                            </StackLayout>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup>
-                                    <VisualState x:Name="normal">
-                                        <VisualState.StateTriggers>
-                                            <StateTrigger IsActive="{Binding State, Converter={xct:EqualConverter}, ConverterParameter={x:Static model:DayStateEnum.Normal}}" />
-                                        </VisualState.StateTriggers>
-                                        <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightCardBackgroundColor}, Dark={StaticResource DarkCardBackgroundColor}}" />
-                                            <Setter Property="HasShadow" Value="True" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                    <VisualState x:Name="active">
-                                        <VisualState.StateTriggers>
-                                            <StateTrigger IsActive="{Binding State, Converter={xct:EqualConverter}, ConverterParameter={x:Static model:DayStateEnum.Active}}" />
-                                        </VisualState.StateTriggers>
-                                        <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightButtonColor}, Dark={StaticResource DarkButtonColor}}" />
-                                            <Setter Property="HasShadow" Value="True" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                    <VisualState x:Name="past">
-                                        <VisualState.StateTriggers>
-                                            <StateTrigger IsActive="{Binding State, Converter={xct:EqualConverter}, ConverterParameter={x:Static model:DayStateEnum.Past}}" />
-                                        </VisualState.StateTriggers>
-                                        <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightCardDisabledBackgroundColor}, Dark={StaticResource DarkCardDisabledBackgroundColor}}" />
-                                            <Setter Property="HasShadow" Value="False" />
-                                            <Setter Property="IsEnabled" Value="False" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                        </Frame>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </Grid>
+
             <StackLayout
                 Grid.Row="4"
                 Margin="15,5,15,0"
@@ -258,8 +100,20 @@
                     VerticalOptions="End" />
             </StackLayout>
             <StackLayout Grid.Row="5" Padding="5,0">
+                <SearchBar
+                    x:Name="searchBar"
+                    Placeholder="Filter on name"
+                    PlaceholderColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                       Dark={StaticResource DarkPrimaryTextColor}}"
+                    SearchCommand="{Binding FilterCommand}"
+                    Text="{Binding Filter}"
+                    TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                Dark={StaticResource DarkPrimaryTextColor}}" />
                 <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing, Mode=OneWay}">
-                    <CollectionView x:Name="CrystalItems" ItemsSource="{Binding CrystalList}">
+                    <CollectionView
+                        x:Name="CrystalItems"
+                        EmptyView="No crystals match your filter."
+                        ItemsSource="{Binding CrystalList}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout>
@@ -269,7 +123,7 @@
                                                 <SwipeItemView Command="{Binding BindingContext.DeleteCrystalCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}">
                                                     <Frame Padding="15,0" BackgroundColor="Transparent">
                                                         <Label
-                                                            FontFamily="FontAwesome_Solid"
+                                                            FontFamily="{StaticResource FontAwesomeSolid}"
                                                             FontSize="{StaticResource Headline4FontSize}"
                                                             Text="&#xf2ed;"
                                                             TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
@@ -280,7 +134,7 @@
                                                 <SwipeItemView Command="{Binding BindingContext.EditCrystalCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}">
                                                     <Frame Padding="25,0,15,0" BackgroundColor="Transparent">
                                                         <Label
-                                                            FontFamily="FontAwesome_Solid"
+                                                            FontFamily="{StaticResource FontAwesomeSolid}"
                                                             FontSize="{StaticResource Headline4FontSize}"
                                                             Text="&#xf303;"
                                                             TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
@@ -373,7 +227,7 @@
                     <TapGestureRecognizer Command="{Binding AddCommand}" />
                 </Frame.GestureRecognizers>
                 <Label
-                    FontFamily="FontAwesome_Solid"
+                    FontFamily="{StaticResource FontAwesomeSolid}"
                     FontSize="{StaticResource Headline3FontSize}"
                     HorizontalOptions="Center"
                     Text="&#xf067;"

@@ -22,7 +22,7 @@
                 </Grid.GestureRecognizers>
                 <Label
                     Grid.Column="0"
-                    FontFamily="FontAwesome_Solid"
+                    FontFamily="{StaticResource FontAwesomeSolid}"
                     FontSize="{StaticResource Headline4FontSize}"
                     HorizontalOptions="Start"
                     Text="&#xf060;"

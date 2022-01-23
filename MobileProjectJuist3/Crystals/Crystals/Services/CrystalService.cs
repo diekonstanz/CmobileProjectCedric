@@ -28,8 +28,13 @@ namespace Crystals.Services
             // Returns all crystls for a pertical user
             return App.DatabaseService.database.Table<Crystal>().Where(i => i.UserId == userId).ToListAsync();
         }
+        public static Task<List<Crystal>> GetCrystalsForUserByNameAsync(int userId, String name)
+        {
+            // Returns all crystls for a pertical user
+            return App.DatabaseService.database.Table<Crystal>().Where(i => i.UserId == userId && i.Name.ToLower() == name.ToLower()).ToListAsync();
+        }
 
-        
+
 
         public static Task<int> SaveCrystalAsync(Crystal crystal)
         {

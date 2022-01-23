@@ -55,6 +55,7 @@ namespace Crystals.ViewModels
         public ICommand DeleteCrystalCommand { get; set; }
         public ICommand EditCrystalCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
+        public ICommand FilterCommand { get; set; }
 
 
         #endregion
@@ -69,16 +70,16 @@ namespace Crystals.ViewModels
             EditCrystalCommand = new Command<Crystal>(EditCrystalCommandHandler);
             ProfileCommand = new Command(ProfileCommandHandler);
             MoreCommand = new Command(MoreCommandHandler);
-            RefreshCommand = new Command(async () => {
+            FilterCommand = new Command(FilterCommandHandlerAsync);
+            RefreshCommand = new Command(() =>
+            {
                 Debug.Write("Refresh " + IsRefreshing);
-                if (!IsRefreshing)
-                {
-                    return;
-                }
                 IsRefreshing = true;
                 SetCrystals();
                 IsRefreshing = false;
+                isRefreshing = false;
                 OnPropertyChanged("IsRefreshing");
+                OnPropertyChanged();
                 Debug.Write("Refresh " + IsRefreshing);
             });
 
@@ -97,6 +98,37 @@ namespace Crystals.ViewModels
         #endregion
 
         #region Command Handlers
+        private async void FilterCommandHandlerAsync()
+        {
+            Debug.WriteLine("Filter");
+            Debug.WriteLine(IsRefreshing);
+            if (IsRefreshing)
+            {
+                return;
+            }
+            IsRefreshing = true;
+            CrystalList.Clear();
+            try
+            {
+                List<Crystal> crystals = await CrystalService.GetCrystalsForUserByNameAsync(App.CurrentUser.Id, Filter);
+                if (crystals.Count > 0)
+                {
+                    foreach (Crystal c in crystals)
+                    {
+                        CrystalList.Add(c);
+                    }
+                }
+                Debug.Write(CrystalListState);
+                Debug.Write(crystals.Count);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            IsRefreshing = false;
+            isRefreshing = false;
+
+        }
 
         private void AddCommandHandler()
         {
@@ -119,7 +151,7 @@ namespace Crystals.ViewModels
         private async void EditCrystalCommandHandler(Crystal crystal)
         {
            
-            _ = Application.Current.MainPage.Navigation.PushAsync(new EditCrystalPage(crystal.Id));
+            await Application.Current.MainPage.Navigation.PushAsync(new EditCrystalPage(crystal.Id));
         }
 
         private void ProfileCommandHandler()
