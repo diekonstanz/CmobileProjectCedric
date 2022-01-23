@@ -100,103 +100,105 @@
                     VerticalOptions="End" />
             </StackLayout>
             <StackLayout Grid.Row="5" Padding="5,0">
-                <CollectionView x:Name="CrystalItems" ItemsSource="{Binding CrystalList}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout>
-                                <SwipeView BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
-                                    <SwipeView.RightItems>
-                                        <SwipeItems>
-                                            <SwipeItemView Command="{Binding BindingContext.DeleteCrystalCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}">
-                                                <Frame Padding="15,0" BackgroundColor="Transparent">
-                                                    <Label
-                                                        FontFamily="FontAwesome_Solid"
-                                                        FontSize="{StaticResource Headline4FontSize}"
-                                                        Text="&#xf2ed;"
-                                                        TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
-                                                                                    Dark={StaticResource DarkPrimaryTextColor}}"
-                                                        VerticalTextAlignment="Center" />
-                                                </Frame>
-                                            </SwipeItemView>
-                                            <SwipeItemView Command="{Binding BindingContext.EditCrystalCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}">
-                                                <Frame Padding="25,0,15,0" BackgroundColor="Transparent">
-                                                    <Label
-                                                        FontFamily="FontAwesome_Solid"
-                                                        FontSize="{StaticResource Headline4FontSize}"
-                                                        Text="&#xf303;"
-                                                        TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
-                                                                                    Dark={StaticResource DarkPrimaryTextColor}}"
-                                                        VerticalTextAlignment="Center" />
-                                                </Frame>
-                                            </SwipeItemView>
-                                        </SwipeItems>
-                                    </SwipeView.RightItems>
-                                    <Frame
-                                        Margin="10,5"
-                                        Padding="10"
-                                        CornerRadius="20">
-                                        <Frame.GestureRecognizers>
-                                            <DragGestureRecognizer
+                <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+                    <CollectionView x:Name="CrystalItems" ItemsSource="{Binding CrystalList}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <SwipeView BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
+                                        <SwipeView.RightItems>
+                                            <SwipeItems>
+                                                <SwipeItemView Command="{Binding BindingContext.DeleteCrystalCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}">
+                                                    <Frame Padding="15,0" BackgroundColor="Transparent">
+                                                        <Label
+                                                            FontFamily="FontAwesome_Solid"
+                                                            FontSize="{StaticResource Headline4FontSize}"
+                                                            Text="&#xf2ed;"
+                                                            TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                                                        Dark={StaticResource DarkPrimaryTextColor}}"
+                                                            VerticalTextAlignment="Center" />
+                                                    </Frame>
+                                                </SwipeItemView>
+                                                <SwipeItemView Command="{Binding BindingContext.EditCrystalCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}">
+                                                    <Frame Padding="25,0,15,0" BackgroundColor="Transparent">
+                                                        <Label
+                                                            FontFamily="FontAwesome_Solid"
+                                                            FontSize="{StaticResource Headline4FontSize}"
+                                                            Text="&#xf303;"
+                                                            TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                                                        Dark={StaticResource DarkPrimaryTextColor}}"
+                                                            VerticalTextAlignment="Center" />
+                                                    </Frame>
+                                                </SwipeItemView>
+                                            </SwipeItems>
+                                        </SwipeView.RightItems>
+                                        <Frame
+                                            Margin="10,5"
+                                            Padding="10"
+                                            CornerRadius="20">
+                                            <Frame.GestureRecognizers>
+                                                <!--<DragGestureRecognizer
                                                 CanDrag="True"
                                                 DragStarting="DragGestureRecognizer_DragStarting_Collection"
                                                 DragStartingCommand="{Binding BindingContext.ItemDragged, Source={x:Reference CrystalItems}}"
-                                                DragStartingCommandParameter="{Binding}" />
-                                        </Frame.GestureRecognizers>
-                                        <Grid
-                                            ColumnDefinitions="Auto, Auto"
-                                            RowDefinitions="Auto, Auto"
-                                            RowSpacing="0">
+                                                DragStartingCommandParameter="{Binding}" />-->
+                                            </Frame.GestureRecognizers>
+                                            <Grid
+                                                ColumnDefinitions="Auto, Auto"
+                                                RowDefinitions="Auto, Auto"
+                                                RowSpacing="0">
 
-                                            <Label
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                Margin="10,0"
-                                                FontFamily="Mulish_ExtraBold"
-                                                FontSize="{StaticResource Body2FontSize}"
-                                                Text="{Binding Name}"
-                                                VerticalOptions="Center">
-                                                <VisualStateManager.VisualStateGroups>
-                                                    <VisualStateGroup>
-                                                        <VisualState x:Name="normal">
-                                                            <VisualState.StateTriggers>
-                                                                <StateTrigger IsActive="true" />
-                                                            </VisualState.StateTriggers>
-                                                            <VisualState.Setters>
-                                                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
-                                                            </VisualState.Setters>
-                                                        </VisualState>
-                                                    </VisualStateGroup>
-                                                </VisualStateManager.VisualStateGroups>
-                                            </Label>
-                                            <Label
-                                                Grid.Row="1"
-                                                Grid.Column="0"
-                                                Margin="10,0"
-                                                FontFamily="Mulish_Regular"
-                                                FontSize="{StaticResource Body1FontSize}"
-                                                Text="{Binding RegisteredDate}"
-                                                VerticalOptions="CenterAndExpand">
-                                                <VisualStateManager.VisualStateGroups>
-                                                    <VisualStateGroup>
-                                                        <VisualState x:Name="normal">
-                                                            <VisualState.StateTriggers>
-                                                                <StateTrigger IsActive="true" />
-                                                            </VisualState.StateTriggers>
-                                                            <VisualState.Setters>
-                                                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
-                                                            </VisualState.Setters>
-                                                        </VisualState>
+                                                <Label
+                                                    Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Margin="10,0"
+                                                    FontFamily="Mulish_ExtraBold"
+                                                    FontSize="{StaticResource Body2FontSize}"
+                                                    Text="{Binding Name}"
+                                                    VerticalOptions="Center">
+                                                    <VisualStateManager.VisualStateGroups>
+                                                        <VisualStateGroup>
+                                                            <VisualState x:Name="normal">
+                                                                <VisualState.StateTriggers>
+                                                                    <StateTrigger IsActive="true" />
+                                                                </VisualState.StateTriggers>
+                                                                <VisualState.Setters>
+                                                                    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
+                                                                </VisualState.Setters>
+                                                            </VisualState>
+                                                        </VisualStateGroup>
+                                                    </VisualStateManager.VisualStateGroups>
+                                                </Label>
+                                                <Label
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    Margin="10,0"
+                                                    FontFamily="Mulish_Regular"
+                                                    FontSize="{StaticResource Body1FontSize}"
+                                                    Text="{Binding RegisteredDate}"
+                                                    VerticalOptions="CenterAndExpand">
+                                                    <VisualStateManager.VisualStateGroups>
+                                                        <VisualStateGroup>
+                                                            <VisualState x:Name="normal">
+                                                                <VisualState.StateTriggers>
+                                                                    <StateTrigger IsActive="true" />
+                                                                </VisualState.StateTriggers>
+                                                                <VisualState.Setters>
+                                                                    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
+                                                                </VisualState.Setters>
+                                                            </VisualState>
 
-                                                    </VisualStateGroup>
-                                                </VisualStateManager.VisualStateGroups>
-                                            </Label>
-                                        </Grid>
-                                    </Frame>
-                                </SwipeView>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                                                        </VisualStateGroup>
+                                                    </VisualStateManager.VisualStateGroups>
+                                                </Label>
+                                            </Grid>
+                                        </Frame>
+                                    </SwipeView>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
             </StackLayout>
             <Frame
                 Grid.Row="5"

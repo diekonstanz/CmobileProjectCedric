@@ -60,8 +60,8 @@
                     </DatePicker>
                 </Frame>
                 <Label
-                    IsVisible="{Binding Date.IsValid, Converter={xct:InvertedBoolConverter}}"
-                    Text="{Binding Date.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    IsVisible="{Binding RegisteredDate.IsValid, Converter={xct:InvertedBoolConverter}}"
+                    Text="{Binding RegisteredDate.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                     TextColor="{StaticResource FailColor}" />
             </StackLayout>
             <Button

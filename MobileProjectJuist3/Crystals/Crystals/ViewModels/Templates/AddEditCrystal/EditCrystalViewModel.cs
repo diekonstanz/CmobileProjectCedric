@@ -86,6 +86,7 @@ namespace Crystals.ViewModels.Templates.AddEditCrystal
                 crystal.UserId = App.CurrentUser.Id;
 
                 int id = await CrystalService.SaveCrystalAsync(crystal);
+
                 await Application.Current.MainPage.Navigation.PopAsync();
             }
             catch (Exception ex)
