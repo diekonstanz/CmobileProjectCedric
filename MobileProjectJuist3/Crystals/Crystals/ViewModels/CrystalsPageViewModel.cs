@@ -83,9 +83,10 @@ namespace Crystals.ViewModels
             //_navigationService.NavigateAsync(nameof(MorePage));
         }
 
-        private void DeleteCrystalCommandHandler(Crystal crystal)
+        private async void DeleteCrystalCommandHandler(Crystal crystal)
         {
-            _ = CrystalService.DeleteCrystalAsync(crystal);
+            await CrystalService.DeleteCrystalAsync(crystal);
+            SetCrystals();
         }
 
         private async void EditCrystalCommandHandler(Crystal crystal)
@@ -112,9 +113,12 @@ namespace Crystals.ViewModels
             try
             {
                 List<Crystal> crystals = await CrystalService.GetCrystalsForUserAsync(App.CurrentUser.Id);
-                CrystalList = new ObservableCollection<Crystal>(crystals);
                 if (crystals.Count > 0)
                 {
+                    foreach(Crystal c in crystals)
+                    {
+                        CrystalList.Add(c);
+                    }
                     CrystalListState = LayoutState.None;
                 }
                 else

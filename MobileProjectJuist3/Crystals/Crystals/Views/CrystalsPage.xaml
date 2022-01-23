@@ -99,26 +99,15 @@
                                                 Dark={StaticResource DarkPrimaryTextColor}}"
                     VerticalOptions="End" />
             </StackLayout>
-            <StackLayout
-                Grid.Row="5"
-                Padding="5,0"
-                xct:StateLayout.CurrentState="{Binding CrystalListState}">
-                <xct:StateLayout.StateViews>
-                    <xct:StateView StateKey="Loading" VerticalOptions="FillAndExpand">
-                        <fragments:LoadingView />
-                    </xct:StateView>
-                    <xct:StateView StateKey="Empty" VerticalOptions="FillAndExpand">
-                        <fragments:ZeroStateView />
-                    </xct:StateView>
-                </xct:StateLayout.StateViews>
+            <StackLayout Grid.Row="5" Padding="5,0">
                 <CollectionView x:Name="CrystalItems" ItemsSource="{Binding CrystalList}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout>
-                                <SwipeView BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}" IsEnabled="{Binding Archived, Converter={xct:InvertedBoolConverter}}">
+                                <SwipeView BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor}, Dark={StaticResource DarkPageBackgroundColor}}">
                                     <SwipeView.RightItems>
                                         <SwipeItems>
-                                            <SwipeItemView Command="{Binding BindingContext.DeleteTaskCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}">
+                                            <SwipeItemView Command="{Binding BindingContext.DeleteCrystalCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}">
                                                 <Frame Padding="15,0" BackgroundColor="Transparent">
                                                     <Label
                                                         FontFamily="FontAwesome_Solid"
@@ -129,7 +118,7 @@
                                                         VerticalTextAlignment="Center" />
                                                 </Frame>
                                             </SwipeItemView>
-                                            <SwipeItemView Command="{Binding BindingContext.EditTaskCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}">
+                                            <SwipeItemView Command="{Binding BindingContext.EditCrystalCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}">
                                                 <Frame Padding="25,0,15,0" BackgroundColor="Transparent">
                                                     <Label
                                                         FontFamily="FontAwesome_Solid"
@@ -152,7 +141,6 @@
                                                 DragStarting="DragGestureRecognizer_DragStarting_Collection"
                                                 DragStartingCommand="{Binding BindingContext.ItemDragged, Source={x:Reference CrystalItems}}"
                                                 DragStartingCommandParameter="{Binding}" />
-                                            <TapGestureRecognizer Command="{Binding BindingContext.CheckTaskCommand, Source={x:Reference CrystalItems}}" CommandParameter="{Binding}" />
                                         </Frame.GestureRecognizers>
                                         <Grid
                                             ColumnDefinitions="Auto, Auto"
@@ -171,18 +159,10 @@
                                                     <VisualStateGroup>
                                                         <VisualState x:Name="normal">
                                                             <VisualState.StateTriggers>
-                                                                <StateTrigger IsActive="{Binding Archived, Converter={xct:InvertedBoolConverter}}" />
+                                                                <StateTrigger IsActive="true" />
                                                             </VisualState.StateTriggers>
                                                             <VisualState.Setters>
                                                                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
-                                                            </VisualState.Setters>
-                                                        </VisualState>
-                                                        <VisualState x:Name="done">
-                                                            <VisualState.StateTriggers>
-                                                                <StateTrigger IsActive="{Binding Archived}" />
-                                                            </VisualState.StateTriggers>
-                                                            <VisualState.Setters>
-                                                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightDisabledTextColor}, Dark={StaticResource DarkSecondaryTextColor}}" />
                                                             </VisualState.Setters>
                                                         </VisualState>
                                                     </VisualStateGroup>
@@ -200,20 +180,13 @@
                                                     <VisualStateGroup>
                                                         <VisualState x:Name="normal">
                                                             <VisualState.StateTriggers>
-                                                                <StateTrigger IsActive="{Binding Archived, Converter={xct:InvertedBoolConverter}}" />
+                                                                <StateTrigger IsActive="true" />
                                                             </VisualState.StateTriggers>
                                                             <VisualState.Setters>
                                                                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}" />
                                                             </VisualState.Setters>
                                                         </VisualState>
-                                                        <VisualState x:Name="done">
-                                                            <VisualState.StateTriggers>
-                                                                <StateTrigger IsActive="{Binding Archived}" />
-                                                            </VisualState.StateTriggers>
-                                                            <VisualState.Setters>
-                                                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightDisabledTextColor}, Dark={StaticResource DarkSecondaryTextColor}}" />
-                                                            </VisualState.Setters>
-                                                        </VisualState>
+
                                                     </VisualStateGroup>
                                                 </VisualStateManager.VisualStateGroups>
                                             </Label>
