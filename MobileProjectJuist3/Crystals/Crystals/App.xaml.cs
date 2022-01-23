@@ -72,15 +72,8 @@ namespace Crystals
 
             SetAppTheme();
 
-            bool hasUsers = UserService.UsersCountAsync().Result > 0;
-            if (hasUsers)
-            {
-                MainPage = new NavigationPage(new LoginPage());
-            }
-            else
-            {
-                MainPage = new NavigationPage(new WelcomePage());
-            }
+            MainPage = new NavigationPage(new WelcomePage());
+            
         }
 
         private void SetAppTheme()

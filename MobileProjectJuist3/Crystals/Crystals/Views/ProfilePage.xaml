@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Crystals.Views.ProfilePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fragments="clr-namespace:Crystals.Views.Fragments"
+    xmlns:viewModel="clr-namespace:Crystals.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <viewModel:ProfilePageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid
+            xct:StateLayout.CurrentState="{Binding MainState}"
+            BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor},
+                                              Dark={StaticResource DarkPageBackgroundColor}}"
+            RowDefinitions="Auto, Auto, *">
+            <xct:StateLayout.StateViews>
+                <xct:StateView StateKey="Loading" VerticalOptions="FillAndExpand">
+                    <fragments:LoadingView />
+                </xct:StateView>
+            </xct:StateLayout.StateViews>
+            <Grid
+                Grid.Row="0"
+                Margin="20,20,0,20"
+                HorizontalOptions="FillAndExpand">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}" />
+                </Grid.GestureRecognizers>
+                <Label
+                    FontFamily="FontAwesome_Solid"
+                    FontSize="{StaticResource Headline4FontSize}"
+                    HorizontalOptions="Start"
+                    Text="&#xf060;"
+                    TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                Dark={StaticResource DarkPrimaryTextColor}}"
+                    VerticalOptions="Start" />
+                <StackLayout HorizontalOptions="CenterAndExpand">
+                    <Label
+                        FontFamily="FontAwesome_Solid"
+                        FontSize="70"
+                        HorizontalOptions="Center"
+                        Text="&#xf2bd;"
+                        TextColor="{AppThemeBinding Light={StaticResource LightButtonColor},
+                                                    Dark={StaticResource DarkButtonColor}}"
+                        VerticalOptions="Center" />
+                    <Label
+                        HorizontalOptions="Center"
+                        Style="{StaticResource Headline4_MulishBlack}"
+                        Text="{Binding Username}"
+                        TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                    Dark={StaticResource DarkPrimaryTextColor}}" />
+                    <Grid Margin="30,0,30,0" ColumnDefinitions="*, *, *">
+                        <StackLayout Grid.Column="0" Spacing="0">
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                Style="{StaticResource Body1_MulishRegular}"
+                                Text="Tasks"
+                                TextColor="{AppThemeBinding Light={StaticResource LightSecondaryTextColor},
+                                                            Dark={StaticResource DarkSecondaryTextColor}}" />
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                Style="{StaticResource Body1_MulishBold}"
+                                Text="{Binding TotalCrystals}" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </Grid>
+            <StackLayout Grid.Row="2" Padding="20,0,20,0">
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                        Style="{StaticResource Body1_MulishRegular}"
+                        Text="Dark mode"
+                        TextColor="{AppThemeBinding Light={StaticResource LightSecondaryTextColor},
+                                                    Dark={StaticResource DarkSecondaryTextColor}}" />
+                    <Switch
+                        BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor},
+                                                          Dark={StaticResource DarkPageBackgroundColor}}"
+                        HorizontalOptions="EndAndExpand"
+                        IsToggled="{Binding IsDarkMode}"
+                        OnColor="{AppThemeBinding Light={StaticResource LightSecondaryTextColor},
+                                                  Dark={StaticResource DarkSecondaryTextColor}}"
+                        ThumbColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                     Dark={StaticResource DarkPrimaryTextColor}}">
+                        <Switch.Behaviors>
+                            <xct:EventToCommandBehavior Command="{Binding DarkModeToggleCommand}" EventName="Toggled" />
+                        </Switch.Behaviors>
+                    </Switch>
+                </StackLayout>
+                <Label Style="{StaticResource Base_Link}" Text="Log out">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LogOutCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

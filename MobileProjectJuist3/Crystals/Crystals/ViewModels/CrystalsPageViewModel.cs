@@ -2,9 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Crystals.Helpers;
@@ -29,6 +30,21 @@ namespace Crystals.ViewModels
         public string Name { get; set; }
         public string Filter { get; set; }
 
+        bool isRefreshing;
+
+        public bool IsRefreshing
+        {
+            get
+            {
+                return isRefreshing;
+            }
+            set
+            {
+                isRefreshing = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -38,7 +54,7 @@ namespace Crystals.ViewModels
         public ICommand MoreCommand { get; set; }
         public ICommand DeleteCrystalCommand { get; set; }
         public ICommand EditCrystalCommand { get; set; }
-
+        public ICommand RefreshCommand { get; set; }
 
 
         #endregion
@@ -47,13 +63,24 @@ namespace Crystals.ViewModels
 
         public CrystalsPageViewModel() : base()
         {
-            MessagingCenter.Subscribe<string, bool>("SetCrystals", "SetCrystals", (sender, arg) => { if (arg) { SetCrystals(); } });
 
             AddCommand = new Command(AddCommandHandler);
             DeleteCrystalCommand = new Command<Crystal>(DeleteCrystalCommandHandler);
             EditCrystalCommand = new Command<Crystal>(EditCrystalCommandHandler);
             ProfileCommand = new Command(ProfileCommandHandler);
             MoreCommand = new Command(MoreCommandHandler);
+            RefreshCommand = new Command(async () => {
+                Debug.Write("Refresh " + IsRefreshing);
+                if (!IsRefreshing)
+                {
+                    return;
+                }
+                IsRefreshing = true;
+                SetCrystals();
+                IsRefreshing = false;
+                OnPropertyChanged("IsRefreshing");
+                Debug.Write("Refresh " + IsRefreshing);
+            });
 
             Initialize();
 
@@ -98,6 +125,7 @@ namespace Crystals.ViewModels
         private void ProfileCommandHandler()
         {
             //_navigationService.NavigateAsync(nameof(ProfilePage));
+            _ = Application.Current.MainPage.Navigation.PushAsync(new ProfilePage());
         }
 
 
@@ -106,9 +134,9 @@ namespace Crystals.ViewModels
 
         #region Private Methods
 
-        private async void SetCrystals()
+        private async void SetCrystals(bool silentFail = false)
         {
-            CrystalListState = LayoutState.Loading;
+            Debug.WriteLine("Setting crystals");
             CrystalList.Clear();
             try
             {
@@ -119,20 +147,18 @@ namespace Crystals.ViewModels
                     {
                         CrystalList.Add(c);
                     }
-                    CrystalListState = LayoutState.None;
-                }
-                else
-                {
-                    CrystalListState = LayoutState.Empty;
                 }
                 Debug.Write(CrystalListState);
                 Debug.Write(crystals.Count);
             } catch(Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert("Error", Constants.Errors.GeneralError, "Close");
+                if (!silentFail)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", Constants.Errors.GeneralError, "Close");
+                }
                 Debug.WriteLine(ex);
             }
-            
+
         }
 
         private void SetUserName()
@@ -149,6 +175,16 @@ namespace Crystals.ViewModels
             base.Destroy();
         }
 
+        #endregion
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         #endregion
     }
 }
