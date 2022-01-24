@@ -34,7 +34,11 @@ namespace Crystals.Services
             return App.DatabaseService.database.Table<Crystal>().Where(i => i.UserId == userId && i.Name.ToLower() == name.ToLower()).ToListAsync();
         }
 
-
+        public static Task<int> CountCrystalsForUserAsync(int userId)
+        {
+            // Returns all crystls for a pertical user
+            return App.DatabaseService.database.Table<Crystal>().Where(i => i.UserId == userId).CountAsync();
+        }
 
         public static Task<int> SaveCrystalAsync(Crystal crystal)
         {

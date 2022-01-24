@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Crystals.Models;
+using Crystals.Services;
 using Crystals.Views;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Essentials;
@@ -26,7 +27,8 @@ namespace Crystals.ViewModels
         #region Properties
 
         public string Username { get; set; }
-        public int TotalCrystalss { get; set; }
+        public string Email { get; set; }
+        public int TotalCrystals { get; set; }
         public bool IsDarkMode { get; set; }
         public bool IsHideEnabled { get; set; }
 
@@ -44,7 +46,10 @@ namespace Crystals.ViewModels
             IsDarkMode = Application.Current.UserAppTheme.Equals(OSAppTheme.Dark);
 
             Username = App.CurrentUser.Name;
+            Email = App.CurrentUser.Email;
             MainState = LayoutState.None;
+
+            SetFieldsAsync();
         }
 
         #endregion
@@ -75,6 +80,11 @@ namespace Crystals.ViewModels
                 Application.Current.UserAppTheme = OSAppTheme.Light;
                 Preferences.Set("theme", "light");
             }
+        }
+
+        private async void SetFieldsAsync()
+        {
+            TotalCrystals = await CrystalService.CountCrystalsForUserAsync(App.CurrentUser.Id);
         }
        
 

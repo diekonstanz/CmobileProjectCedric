@@ -51,20 +51,41 @@
                         Text="{Binding Username}"
                         TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
                                                     Dark={StaticResource DarkPrimaryTextColor}}" />
-                    <Grid Margin="30,0,30,0" ColumnDefinitions="*, *, *">
-                        <StackLayout Grid.Column="0" Spacing="0">
+                    <Grid Margin="0,0,30,0" ColumnDefinitions="*, *, *">
+                        <StackLayout
+                            Grid.Column="0"
+                            Orientation="Horizontal"
+                            Spacing="2">
                             <Label
                                 HorizontalTextAlignment="Center"
                                 Style="{StaticResource Body1_MulishRegular}"
-                                Text="Tasks"
+                                Text="Email"
                                 TextColor="{AppThemeBinding Light={StaticResource LightSecondaryTextColor},
                                                             Dark={StaticResource DarkSecondaryTextColor}}" />
                             <Label
+                                HorizontalOptions="EndAndExpand"
+                                Style="{StaticResource Body1_MulishBold}"
+                                Text="{Binding Email}" />
+                        </StackLayout>
+                    </Grid>
+                    <Grid Margin="0,0,30,0" ColumnDefinitions="*, *, *">
+                        <StackLayout
+                            Grid.Column="0"
+                            Orientation="Horizontal"
+                            Spacing="2">
+                            <Label
                                 HorizontalTextAlignment="Center"
+                                Style="{StaticResource Body1_MulishRegular}"
+                                Text="Crystals"
+                                TextColor="{AppThemeBinding Light={StaticResource LightSecondaryTextColor},
+                                                            Dark={StaticResource DarkSecondaryTextColor}}" />
+                            <Label
+                                HorizontalOptions="EndAndExpand"
                                 Style="{StaticResource Body1_MulishBold}"
                                 Text="{Binding TotalCrystals}" />
                         </StackLayout>
                     </Grid>
+
                 </StackLayout>
             </Grid>
             <StackLayout Grid.Row="2" Padding="20,0,20,0">
