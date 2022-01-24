@@ -3,6 +3,8 @@ using Crystals.Services;
 using Crystals.Views;
 using System;
 using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -88,6 +90,8 @@ namespace Crystals
                 Application.Current.UserAppTheme = OSAppTheme.Dark;
             }
         }
+
+     
 
     }
 }

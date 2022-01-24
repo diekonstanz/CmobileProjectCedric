@@ -3,6 +3,7 @@
     x:Class="Crystals.Views.Templates.Auth.SignUpTemplate"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviour="clr-namespace:Crystals.Behaviors"
     xmlns:views="clr-namespace:Crystals.ViewModels.Templates.Auth"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 

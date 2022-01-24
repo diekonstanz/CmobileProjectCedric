@@ -1,4 +1,6 @@
-﻿using SQLite;
+﻿
+using Crystals.ViewModels;
+using SQLite;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,6 +13,10 @@ namespace Crystals.Views
         public WelcomePage()
         {
             InitializeComponent();
+
         }
+       
+
+       
     }
 }

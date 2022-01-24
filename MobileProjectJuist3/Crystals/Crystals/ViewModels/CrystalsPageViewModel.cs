@@ -102,36 +102,43 @@ namespace Crystals.ViewModels
         private async void FilterCommandHandlerAsync()
         {
             Debug.WriteLine("Filter");
+            Debug.WriteLine(Filter);
             Debug.WriteLine(IsRefreshing);
             if (IsRefreshing)
             {
                 return;
             }
             IsRefreshing = true;
-            CrystalList.Clear();
-            try
+            if (String.IsNullOrEmpty(Filter))
             {
-                List<Crystal> crystals = await CrystalService.GetCrystalsForUserByNameAsync(App.CurrentUser.Id, Filter);
-                if (crystals.Count > 0)
+                SetCrystals();
+            } else
+            {
+                CrystalList.Clear();
+                try
                 {
-                    foreach (Crystal c in crystals)
+                    List<Crystal> crystals = await CrystalService.GetCrystalsForUserByNameAsync(App.CurrentUser.Id, Filter);
+                    if (crystals.Count > 0)
                     {
-                        CrystalList.Add(c);
+                        foreach (Crystal c in crystals)
+                        {
+                            CrystalList.Add(c);
+                        }
                     }
+                    Debug.Write(CrystalListState);
+                    Debug.Write(crystals.Count);
                 }
-                Debug.Write(CrystalListState);
-                Debug.Write(crystals.Count);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+               
             }
             IsRefreshing = false;
             isRefreshing = false;
             OnPropertyChanged(nameof(IsRefreshing));
             OnPropertyChanged("IsRefreshing");
             OnPropertyChanged();
-
         }
 
         private void AddCommandHandler()
