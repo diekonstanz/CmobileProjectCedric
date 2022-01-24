@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -26,6 +27,7 @@ namespace Crystals.ViewModels
 
         protected async void BackCommandHandler()
         {
+            Debug.WriteLine("Back");
             if (Device.RuntimePlatform == Device.UWP && Application.Current.MainPage.Navigation.NavigationStack.Count > 1)
             {
                 await Application.Current.MainPage.Navigation.PopAsync();

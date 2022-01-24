@@ -30,6 +30,7 @@ namespace Crystals.ViewModels.Templates.AddEditCrystal
 
         public ICommand CreateCommand { get; set; }
         public ICommand ValidateCommand { get; set; }
+        public ICommand BackCommand { get; set; }
 
         #endregion
 
@@ -38,6 +39,7 @@ namespace Crystals.ViewModels.Templates.AddEditCrystal
         public EditCrystalViewModel() : base()
         {
 
+            BackCommand = new Command(BackCommandHandler);
             CreateCommand = new Command(CreateCommandHandler);
             ValidateCommand = new Command<string>(ValidateCommandHandler);
             AddValidations();
@@ -98,6 +100,7 @@ namespace Crystals.ViewModels.Templates.AddEditCrystal
 
         public void SetId(int id)
         {
+            Debug.WriteLine("SetId");
             this._id = id;
             LoadCrystal();
         }
@@ -108,9 +111,11 @@ namespace Crystals.ViewModels.Templates.AddEditCrystal
 
         private async void LoadCrystal()
         {
-            Crystal crystal = await CrystalService.GetCrystalAsync(this._id);
+            Crystal crystal = await CrystalService.GetCrystalAsync(_id);
             Name.Value = crystal.Name;
             RegisteredDate.Value = crystal.RegisteredDate;
+            Name.RaisePropertyChanged();
+            RegisteredDate.RaisePropertyChanged();
         }
         private bool IsFormValid()
         {

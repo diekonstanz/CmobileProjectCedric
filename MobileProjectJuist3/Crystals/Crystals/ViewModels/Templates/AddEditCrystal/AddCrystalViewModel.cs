@@ -25,8 +25,8 @@ namespace Crystals.ViewModels.Templates.AddEditCrystal
         #region Commands
 
         public ICommand CreateCommand { get; set; }
-
         public ICommand ValidateCommand { get; set; }
+        public ICommand BackCommand { get; set; }
 
         #endregion
 
@@ -34,6 +34,7 @@ namespace Crystals.ViewModels.Templates.AddEditCrystal
 
         public AddCrystalViewModel() : base()
         {
+            BackCommand = new Command(BackCommandHandler);
             CreateCommand = new Command(CreateCommandHandler);
             ValidateCommand = new Command<string>(ValidateCommandHandler);
 

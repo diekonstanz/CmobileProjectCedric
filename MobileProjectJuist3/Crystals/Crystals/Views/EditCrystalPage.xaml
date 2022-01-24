@@ -3,43 +3,48 @@
     x:Class="Crystals.Views.EditCrystalPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:Crystals.Views.Templates.AddEditCrystal"
+    xmlns:viewModel="clr-namespace:Crystals.ViewModels.Templates.AddEditCrystal"
+    xmlns:views="clr-namespace:Crystals.Views.Templates"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <viewModel:EditCrystalViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid
             Padding="20,20,20,0"
             BackgroundColor="{AppThemeBinding Light={StaticResource LightPageBackgroundColor},
                                               Dark={StaticResource DarkPageBackgroundColor}}"
             RowDefinitions="Auto, Auto, *, Auto">
-            <Grid
-                Grid.Row="0"
-                Margin="0,0,0,10"
-                ColumnDefinitions="Auto, Auto"
-                HorizontalOptions="Start">
-                <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding BackCommand}" />
-                </Grid.GestureRecognizers>
-                <Label
-                    Grid.Column="0"
-                    FontFamily="{StaticResource FontAwesomeSolid}"
-                    FontSize="{StaticResource Headline4FontSize}"
-                    HorizontalOptions="Start"
-                    Text="&#xf060;"
-                    TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
-                                                Dark={StaticResource DarkPrimaryTextColor}}"
-                    VerticalOptions="Center" />
-                <Label
-                    Grid.Column="1"
-                    Margin="10,0,0,0"
-                    Style="{StaticResource Headline4_MulishBlack}"
-                    Text="{Binding Title}"
-                    VerticalOptions="Center" />
-            </Grid>
 
             <ContentView>
+
                 <Grid RowDefinitions="*, Auto">
-                    <StackLayout Grid.Row="0">
+                    <Grid
+                        Grid.Row="0"
+                        Margin="0,0,0,10"
+                        ColumnDefinitions="Auto, Auto"
+                        HorizontalOptions="Start">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BackCommand}" />
+                        </Grid.GestureRecognizers>
+                        <Label
+                            Grid.Column="0"
+                            FontFamily="{StaticResource FontAwesomeSolid}"
+                            FontSize="{StaticResource Headline4FontSize}"
+                            HorizontalOptions="Start"
+                            Text="&#xf060;"
+                            TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor},
+                                                        Dark={StaticResource DarkPrimaryTextColor}}"
+                            VerticalOptions="Center" />
+                        <Label
+                            Grid.Column="1"
+                            Margin="10,0,0,0"
+                            Style="{StaticResource Headline4_MulishBlack}"
+                            Text="{Binding Title}"
+                            VerticalOptions="Center" />
+                    </Grid>
+                    <StackLayout Grid.Row="1">
                         <StackLayout Spacing="5">
                             <Label Style="{StaticResource Body1_MulishSemiBold}" Text="Name" />
                             <Frame x:Name="NameFrame" Style="{StaticResource Base_FrameEntry}">
@@ -88,8 +93,8 @@
                                 </DatePicker>
                             </Frame>
                             <Label
-                                IsVisible="{Binding Date.IsValid, Converter={xct:InvertedBoolConverter}}"
-                                Text="{Binding Date.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                                IsVisible="{Binding RegisteredDate.IsValid, Converter={xct:InvertedBoolConverter}}"
+                                Text="{Binding RegisteredDate.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
                                 TextColor="{StaticResource FailColor}" />
                         </StackLayout>
                         <Button
@@ -97,7 +102,7 @@
                             Margin="20,20,20,10"
                             Command="{Binding CreateCommand}"
                             Style="{StaticResource Base_Button}"
-                            Text="Add" />
+                            Text="Save" />
                     </StackLayout>
 
                 </Grid>
